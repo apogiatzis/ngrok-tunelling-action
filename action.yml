@@ -38,7 +38,3 @@ runs:
       shell: bash      
     - run: echo ${{ steps.print-tunnel-url.outputs.tunnel-url }}
       shell: bash
-
-    - name: Sleep
-      run: sleep ${{ inputs.timeout }}
-      shell: bash
