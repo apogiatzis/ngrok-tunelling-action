@@ -32,3 +32,4 @@ runs:
       shell: bash
     - run: timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }} &
       shell: bash
+    - run: timeout ${{ inputs.timeout }}
