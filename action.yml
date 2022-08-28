@@ -30,8 +30,7 @@ runs:
       shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
-    - run: timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }} &
+    - run: timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }} -log stdout -log-format logfmt -log-level debug
       shell: bash
-    - run: timeout ${{ inputs.timeout }}
-      shell: bash
+
 
