@@ -16,6 +16,10 @@ inputs:
   ngrok_authtoken:
     description: 'Ngrok authorization token'
     required: true
+  tunnel_type:
+    description: 'Type of Ngrok tunnel, tcp or http'
+    required: true
+    default: 'tcp'
 
 runs:
   using: "composite"
@@ -26,5 +30,5 @@ runs:
       shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
-    - run: timeout ${{ inputs.timeout }} ./ngrok tcp ${{ inputs.port }}
+    - run: timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }}
       shell: bash
