@@ -23,6 +23,7 @@ inputs:
 outputs:
   TUNNEL_URL:
     description: "Ngrok tunnel URL"
+    value: ${{ steps.print-tunnel-url.outputs.TUNNEL_URL }}
 
 runs:
   using: "composite"
