@@ -35,7 +35,8 @@ runs:
       shell: bash
     - run: ( timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }} ) &
       shell: bash
-
+    - run: sleep 10s
+      shell: bash
     - id: print-tunnel-url
       run: echo "::set-output name=TUNNEL_URL::$( curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url )"
       shell: bash
