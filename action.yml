@@ -21,7 +21,8 @@ inputs:
     required: true
     default: 'tcp'
 outputs:
-  TUNNEL_URL: ${{ steps.print-tunnel-url.outputs.TUNNEL_URL }}
+  TUNNEL_URL:
+    description: "Ngrok tunnel URL"
 
 runs:
   using: "composite"
