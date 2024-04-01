@@ -24,6 +24,8 @@ runs:
       shell: bash
     - run: unzip -qq ngrok-stable-linux-amd64.zip
       shell: bash
+    - run: ./ngrok update
+      shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
     - run: timeout ${{ inputs.timeout }} ./ngrok tcp ${{ inputs.port }}
