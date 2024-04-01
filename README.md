@@ -1,6 +1,6 @@
 # Ngrok tunelling Github Action
 
-This is a Github Action that can be used in your Github Workflow to tunnel incoming/outgoing TCP traffic in your workflow environment.
+This is a Github Action that can be used in your Github Workflow to tunnel incoming/outgoing TCP traffic in your workflow environment, **base on [apogiatzis/ngrok-tunneling-action@v0.1.4](https://github.com/apogiatzis/ngrok-tunneling-action).**
 
 The original use case for this was to achieve temporary deployment for CTF challenges under development but it can be as well used in many more other cases. 
 
@@ -34,7 +34,7 @@ jobs:
     - name: Run container
       run: docker-compose up -d 
     
-    - uses: apogiatzis/ngrok-tunneling-action@<VERSION>
+    - uses: i36lib/ngrok-tunneling-action@v0.1.5
       with:
         timeout: 1h
         port: 4000
