@@ -16,15 +16,32 @@ inputs:
   ngrok_authtoken:
     description: 'Ngrok authorization token'
     required: true
+  tunnel_type:
+    description: 'Type of Ngrok tunnel, tcp or http'
+    required: true
+    default: 'tcp'
+outputs:
+  TUNNEL_URL:
+    description: "Ngrok tunnel URL"
+    value: ${{ steps.print-tunnel-url.outputs.TUNNEL_URL }}
+  environment_url:
+    value: ${{ steps.print-tunnel-url.outputs.TUNNEL_URL }}
 
 runs:
   using: "composite"
   steps: 
-    - run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+    - run: wget --quiet https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
       shell: bash
     - run: unzip -qq ngrok-stable-linux-amd64.zip
       shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
-    - run: timeout ${{ inputs.timeout }} ./ngrok tcp ${{ inputs.port }}
+    - run: ( timeout ${{ inputs.timeout }} ./ngrok ${{ inputs.tunnel_type }} ${{ inputs.port }} ) &
+      shell: bash
+    - run: sleep 10s
+      shell: bash
+    - id: print-tunnel-url
+      run: echo "::set-output name=TUNNEL_URL::$( curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url )"
+      shell: bash
+    - run: echo ${{ steps.print-tunnel-url.outputs.TUNNEL_URL }}
       shell: bash
